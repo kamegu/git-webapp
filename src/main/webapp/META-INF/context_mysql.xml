@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/gitapp">
+    <Resource name="jdbc/gitapp"
+          auth="Container"
+          type="javax.sql.DataSource"
+          maxActive ="-1"
+          maxIdle="-1"
+          maxWait="-1"
+          username="gitwebapp"
+          password="gitwebapp"
+          driverClassName="com.mysql.jdbc.Driver"
+          url="jdbc:mysql://dbhost/dbname"
+          />
+</Context>

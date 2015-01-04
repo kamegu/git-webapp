@@ -1,0 +1,381 @@
+@CHARSET "UTF-8";
+
+/****************/
+/* common parts */
+/****************/
+
+.list-header {
+  margin-top: 5px;
+	margin-bottom: 7px;
+}
+
+.form-buttons {
+  margin: 10px;
+}
+
+.list-content .label .octicon.small {
+	font-size: 13px;
+}
+
+.list-content .list-action {
+  color: #999;
+  margin-left: 10px;
+}
+.list-content .list-action .octicon {
+  margin-right: 5px;
+}
+
+.inline-form .form-control {
+	display: inline;
+}
+
+.error-message {
+  color: red;
+}
+
+div hr {
+  margin: 3px;
+}
+
+td hr {
+  margin: 2px;
+}
+
+/* icon */
+
+.icon-label {
+  color: #444;
+}
+
+.icon-label a {
+  color: #999;
+}
+
+.icon-label.label {
+  background-color: #e3f0f0;
+  color: #555;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+.icon-label .octicon {
+  margin-right: 5px;
+  color: #999;
+}
+
+.octicon.open {
+  color: #6cc644;
+}
+
+.octicon.closed {
+  color: #bd2c00;
+}
+
+.icon-label.label.open {
+  background-color: #6cc644;
+  color: #fff;
+}
+
+.icon-label.label.closed {
+  background-color: #bd2c00;
+  color: #fff;
+}
+
+.icon-label.label.open .octicon,
+.icon-label.label.closed .octicon {
+  color: #fff;
+}
+
+/* dropdown */
+.dropdown-toggle {
+  padding: 3px 10px;
+  color: #333;
+}
+
+.dropdown-toggle .type {
+  color: #aaa;
+  margin-right: 10px;
+}
+
+.dropdown-menu > li > a {
+  padding: 2px 10px;
+}
+
+.dropdown-menu > li span.octicon-check {
+  color: #fff;
+  padding-right: 5px;
+}
+
+.dropdown-menu > li:hover span.octicon-check {
+  color: #f4f4f4;
+}
+
+.dropdown-menu > li.selected span.octicon-check {
+  color: #333;
+}
+
+/* markdown editor */
+
+.markdown-content {
+	margin: 10px;
+	min-height: 100px;
+}
+
+.markdown-editor .nav-tabs {
+  margin-top: 5px;
+  padding-left: 10px;
+}
+.markdown-editor .nav-tabs > li > a {
+  padding: 6px 10px;
+}
+
+/* app parts */
+
+.gw-header a {
+  font-weight: bold;
+}
+
+.login-form {
+  width: 300px;
+}
+
+/********************/
+/* repository parts */
+/********************/
+
+.repo-header {
+  font-size: 20px;
+}
+
+.repo-header .octicon {
+  font-size: 30px;
+  color: #bbb;
+}
+
+.repo-sidemenu {
+	min-width: 50px;
+}
+
+/**/
+.repo-current-paths {
+  font-size: large;
+  margin-left: 10px;
+}
+.repo-current-paths > .path:after {
+  content: ' / '
+}
+
+/* repository files */
+.repo-files {
+  border: 1px solid #aaa;
+  background-color: #f8f8f8;
+}
+
+.repo-files tr td, .repo-files tr th {
+  font-size: small;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+.repo-files .commit-message {
+  background-color: #e6f1f6;
+}
+
+.repo-files .commit-detail {
+  background-color: #fff;
+}
+
+.repo-files td.icon {
+  width: 15px;
+  padding-left: 5px;
+  padding-right: 0px;
+  color: #777;
+}
+
+.repo-files td.icon .octicon-file-directory {
+  color: #80a6cd;
+}
+
+.repo-files td.content {
+  max-width: 250px;
+}
+
+.repo-files td.message {
+  max-width: 450px;
+}
+
+.repo-files td.timestamp {
+  max-width: 140px;
+  padding-right: 5px;
+  text-align: right;
+}
+
+/* repository diffs */
+.repo-diff .commit-file-list {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+.repo-diff .commit-file-list li,
+.repo-diff .commit-file-list .octicon {
+  font-size: 14px;
+}
+
+.repo-diff .commit-file-list li+li {
+  border-top: 1px solid #ddd;
+}
+
+.repo-diff .commit-file-list .octicon-diff-added {
+  color: #6cc644;
+}
+
+.repo-diff .commit-file-list .octicon-diff-modified {
+  color: #d0b44c;
+}
+
+.repo-diff .commit-file-list .octicon-diff-renamed {
+  color: #677a85;
+}
+
+.repo-diff .commit-file-list .octicon-diff-removed{
+  color:#bd2c00;
+}
+
+.repo-file {
+  border: 1px solid #ddd;
+  margin: 20px 0 10px 0;
+  border-radius: 4px;
+}
+
+.repo-file .meta {
+  padding: 5px 10px;
+  text-shadow: 0 1px 0 #fff;
+  border-bottom: 1px solid #d8d8d8;
+  background-color: #f7f7f7;
+}
+
+.repo-file .blob {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.blob td {
+  padding-left: 5px;
+  padding-right: 5px;
+	font-size: 12px;
+}
+
+.blob .blob-num {
+  width: 1%;
+  min-width: 45px;
+  text-align: right;
+  color: #999;
+  border-color: #eee;
+  border-width: 0 1px 0 0;
+  border-style: solid;
+}
+
+.blob .blob-code {
+  padding-left: 15px;
+	white-space: pre;
+  color: #333;
+  position: relative;
+}
+
+.blob .blob-num-added {
+  background-color: #dbffdb;
+}
+.blob .blob-code-added {
+  background-color: #eaffea;
+}
+.blob .blob-num-deleted {
+  background-color: #fdd;
+}
+.blob .blob-code-deleted {
+  background-color: #ffecec;
+}
+.blob .blob-num-hunk, .blob-code-hunk {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #f8fafd;
+  border: 1px solid #eee;
+  color: rgba(0,0,0,0.3);
+}
+
+/* comment-add button */
+.blob .octicon-plus {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  margin: -1px 0;
+  line-height: 18px;
+  text-align: center;
+  left: -8px;
+  z-index: 5;
+  font-size: 12px;
+  border-radius: 2px;
+  background-color: #4183c4;
+  color: #fff;
+  opacity: 0;
+}
+
+.blob .octicon-plus:hover {
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  font-size: 13px;
+  margin: -3px 0;
+  left: -10px;
+}
+
+.blob tr:hover .octicon-plus {
+  opacity: 1;
+}
+
+/* issue detail page (issue input, pull request input) */
+.issue-main {
+  width: 100%;
+  margin-right: -130px;
+}
+.issue-main > * {
+  margin-right: 140px;
+}
+.issue-sidebar {
+  width: 130px;
+}
+.issue-sidebar hr {
+  margin: 15px 0;
+}
+
+/* issue comment */
+
+.issue-comment-header {
+  padding: 4px 10px;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.issue-comment-content {
+  padding: 10px;
+}
+
+.issue-comment-header .label {
+	border: 1px solid #ccc;
+  color: #bbb;
+}
+
+.issue-comment-header .octicon {
+  color: inherit;
+}
+
+/* issue input */
+
+.issue-comment .issue-form {
+  padding: 10px;
+}
+
+.issue-comment .issue-infobar {
+  padding: 0 10px 10px;
+  border-bottom: 1px solid #eee;
+}

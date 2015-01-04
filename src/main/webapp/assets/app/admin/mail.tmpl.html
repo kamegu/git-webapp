@@ -1,0 +1,59 @@
+<div class="panel panel-default" >
+  <div class="panel-heading">Notification Mail Setting(SMTP)</div>
+  <div class="panel-body" ng-hide="MailCtrl.settings.$resolved">loading...
+  </div>
+
+  <div class="panel-body" ng-show="MailCtrl.settings.$resolved">
+    <form name="mailForm">
+      <div class="form-group">
+        <label for="host">Host</label>
+        <input type="text" class="form-control" name="host" ng-model="MailCtrl.settings.host" required/>
+        <span class="error-message" ng-show="mailForm.host.$error.required">Required</span>
+      </div>
+      <div class="form-group">
+        <label for="port">port</label>
+        <input type="text" class="form-control" name="port" ng-model="MailCtrl.settings.port" ng-pattern="/^[0-9]+$/" style="width: 30%" required/>
+        <span class="error-message" ng-show="mailForm.port.$error.required">Required</span>
+        <span class="error-message" ng-show="mailForm.port.$error.pattern">invalid number</span>
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" ng-model="MailCtrl.settings.auth"/>User authentication
+        </label>
+      </div>
+      <div class="form-group" ng-show="MailCtrl.settings.auth">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" ng-model="MailCtrl.settings.username" ng-required="MailCtrl.settings.auth"/>
+        <span class="error-message" ng-show="mailForm.username.$error.required">Required</span>
+      </div>
+      <div class="form-group" ng-show="MailCtrl.settings.auth">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" ng-model="MailCtrl.settings.password" ng-required="MailCtrl.settings.auth"/>
+        <span class="error-message" ng-show="mailForm.password.$error.required">Required</span>
+      </div>
+      <div class="form-group" ng-show="MailCtrl.settings.auth">
+        <label>
+          <input type="checkbox" ng-model="MailCtrl.settings.tls"/>Enable SSL
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="from">From Address</label>
+        <input type="email" class="form-control" name="from" ng-model="MailCtrl.settings.from" required/>
+        <span class="error-message" ng-show="mailForm.from.$error.required">Required</span>
+        <span class="error-message" ng-show="mailForm.from.$error.email">invalid email</span>
+      </div>
+      <div class="form-group" ng-if="MailCtrl.mode != 'testMail'">
+        <a class="btn btn-success" ng-click="MailCtrl.save()" gw-post-button="MailCtrl.savePost" gw-post-form="mailForm" gw-alternative-text="saving...">Register</a>
+        <a class="btn btn-default" ng-click="MailCtrl.mode = 'testMail'" >Send Test Mail</a>
+      </div>
+      <div class="form-group" ng-if="MailCtrl.mode == 'testMail'">
+        <label for="to">To Address</label>
+        <input type="email" class="form-control" name="to" ng-model="MailCtrl.testMailAddress" required/>
+        <span class="error-message" ng-show="mailForm.to.$error.required">Required</span>
+        <span class="error-message" ng-show="mailForm.to.$error.email">invalid email</span>
+        <a class="btn btn-default" ng-click="MailCtrl.sendTestMail()" ng-disabled="!mailForm.$valid || MailCtrl.testing">Send!!</a>
+        <a class="btn btn-default" ng-click="MailCtrl.mode = ''" ng-disabled="MailCtrl.testing">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

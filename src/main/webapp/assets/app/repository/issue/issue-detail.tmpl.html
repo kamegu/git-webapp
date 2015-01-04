@@ -1,0 +1,110 @@
+<div class="list-header" ng-if="!Detail.issue.$resolved">loading...
+</div>
+<div class="list-header" ng-if="Detail.issue.$resolved">
+  <div class="clearfix">
+    <div class="pull-left">
+      <span style="font-size: 30px">{{Detail.issue.title}}<span style="color: #aaa; padding-left: 10px;">#{{Detail.issue.issueId}}</span></span>
+    </div>
+    <div class="pull-right" ng-switch="!!Detail.issue.pull">
+      <a class="btn btn-success" ng-switch-when="false" href="{{repoPath}}/issues/new">New Issue</a>
+      <a class="btn btn-success" ng-switch-when="true" href="{{repoPath}}/compare" target="_self">New Pull Request</a>
+    </div>
+  </div>
+  <div ng-switch="!!Detail.issue.closed">
+    <span class="label icon-label closed" ng-switch-when="true"><span class="octicon octicon-issue-closed"></span>Closed</span>
+    <span class="label icon-label open" ng-switch-when="false"><span class="octicon octicon-issue-opened"></span>Open</span>
+  </div>
+</div>
+<hr>
+<div class="clearfix" ng-if="Detail.comments.$resolved">
+  <div class="issue-main pull-left">
+    <div ng-repeat="comment in Detail.comments">
+      <div class="issue-comment panel panel-default">
+        <div class="issue-comment-header">
+          <span class="author"><b>{{comment.commentAccountName}}</b></span> commented 
+          <div class="pull-right">
+            <span class="label" ng-if="repoContext.allOwners.indexOf(comment.commentAccountName) >= 0">owner</span>
+            <a class="octicon octicon-pencil" href="#" gw-collaborator-only></a>
+          </div>
+        </div>
+        <div class="issue-comment-content markdown-body" ng-bind-html="comment.content"></div>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-if="Detail.issue.pull && !Detail.issue.closed" gw-collaborator-only>
+      <div class="panel-body" ng-switch="Detail.mergeCheckResult && Detail.mergeCheckResult.$resolved">
+        <div ng-switch-when="false">
+          checking mergeability...
+        </div>
+        <div class="clearfix" ng-switch-when="true">
+          <div ng-if="Detail.mergeCheckResult.mergeable == 'ENABLE'">
+            <div ng-show="!Detail.showMergeForm">
+              <b>This pull request can be automatically merged.</b>
+              <button class="btn btn-success" ng-click="Detail.showMergeForm = true;">Merge pull request</button>
+            </div>
+            <form name="mergeForm" ng-show="Detail.showMergeForm" novalidate>
+              <div><b>{{Detail.issue.pullRequest.mergeMessage}}</b></div>
+              <textarea class="form-control" ng-model="Detail.mergeComment.content" required></textarea>
+              <div class="form-buttons clearfix">
+                <div class="pull-right">
+                  <a class="btn btn-default" ng-click="Detail.showMergeForm = false">Cancel</a>
+                  <a class="btn btn-success" ng-click="Detail.merge()" gw-post-button="Detail.mergePost" gw-alternative-text="saving...">Merge</a>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div ng-if="Detail.mergeCheckResult.mergeable == 'DISABLE'">
+            <b>We cannot automatically merge this pull request.</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form name="commentForm" gw-login-only novalidate>
+      <div class="issue-comment panel panel-default">
+        <div gw-markdown-editor gw-content="Detail.newComment.content" gw-required="true"></div>
+
+        <div class="form-buttons clearfix">
+          <div class="pull-right">
+            <a class="btn btn-default" ng-click="Detail.closeIssue()" gw-post-button="Detail.post" gw-alternative-text="saving..." ng-if="!Detail.issue.closed" gw-collaborator-only>Close Issue</a>
+            <a class="btn btn-success" ng-click="Detail.addComment()" gw-post-button="Detail.post" gw-alternative-text="saving...">Comment</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- sidebar -->
+  <div class="issue-sidebar pull-right">
+    <div class="dropdown" gw-login-only>
+      <button class="btn btn-default btn-small dropdown-toggle" type="button" data-toggle="dropdown">
+        <span class="name">select labels</span>
+        <span class="octicon octicon-gear"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li ng-repeat="label in Detail.allLabels" ng-class="{selected: Detail.hasLabel(label.name)}"><a ng-click="Detail.registerLabels(label.name);"><span class="octicon octicon-check"></span>{{label.name}}</a></li>
+      </ul>
+    </div>
+    <div gw-login-only-alternative><b>Labels</b></div>
+    <div ng-repeat="label in Detail.issue.labels">
+      <span class="label label-default" ng-style="{'background-color': label.color}">
+        <span class="octicon octicon-tag"></span>
+        {{label.name}}
+      </span>
+    </div>
+    <hr>
+
+    <div class="dropdown" gw-login-only>
+      <button class="btn btn-default btn-small dropdown-toggle" type="button" data-toggle="dropdown">
+        <span class="name">Assignee</span>
+        <span class="octicon octicon-gear"></span>
+      </button>
+      <ul class="dropdown-menu">
+      </ul>
+    </div>
+    <div gw-login-only-alternative><b>Assignee</b></div>
+    <span>No one assigned</span>
+    <hr>
+
+  </div>
+</div>

@@ -1,0 +1,40 @@
+  <div class="repo-diff" ng-show="diffs && diffs.length != 0">
+    <div class="clearfix">
+      <span class="octicon octicon-diff"></span>Showing {{diffs.length}} changed files
+      <div class="pull-right">
+        <button id="commit-file-list-toggle" class="btn btn-default btn-sm" ng-click="diffFileViewable=!diffFileViewable;">{{diffFileViewable ? 'Hide files' : 'Show files'}}</button>
+      </div>
+    </div>
+    <div>
+      <ul class="commit-file-list" ng-show="diffFileViewable">
+        <li ng-repeat="diffInfo in diffs">
+          <span class="octicon" ng-class="'octicon-diff-'+changeTypeMap[diffInfo.changeType]" title="{{changeTypeMap[diffInfo.changeType]}}"></span>
+          {{diffInfo.fileName}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="repo-file" ng-repeat="diffInfo in diffs">
+      <div class="meta clearfix">
+        <span>{{diffInfo.fileName}}</span>
+        <div class="pull-right">
+          <a href="#" class="btn btn-default btn-xs">View</a>
+        </div>
+      </div>
+      <div class="blob">
+        <table class="diff-table">
+          <tbody ng-repeat="diffBlock in diffInfo.diffBlocks">
+            <tr ng-show="diffBlock.diffLines && diffBlock.diffLines.length != 0">
+              <td colspan="2" class="blob-num blob-num-hunk"></td>
+              <td class="blob-code blob-code-hunk">{{diffBlock.header}}</td>
+            </tr>
+            <tr ng-repeat="diffLine in diffBlock.diffLines">
+              <td class="blob-num blob-num-{{diffLine.typeName}}">{{diffLine.aline}}</td>
+              <td class="blob-num blob-num-{{diffLine.typeName}}">{{diffLine.bline}}</td>
+              <td class="blob-code blob-code-{{diffLine.typeName}}"><span class="octicon octicon-plus"></span>{{diffLine.text}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- file -->
+  </div><!-- repo-diff -->

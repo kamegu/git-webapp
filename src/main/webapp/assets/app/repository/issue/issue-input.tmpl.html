@@ -1,0 +1,25 @@
+<div class="clearfix" gw-login-only-alternative>login first please</div>
+<div class="clearfix" gw-login-only="reload">
+  <div class="issue-main pull-left">
+    <form name="form" novalidate>
+      <div class="issue-comment panel panel-default">
+        <div class="issue-form">
+	        <input type="text" class="form-control" name="title" ng-model="Input.issue.title" placeholder="Title" required/>
+	        <span class="error-message" ng-show="form.title.$error.required">Required</span>
+	      </div>
+	      <div class="issue-infobar clearfix">
+	        <div class="pull-left">No one is assigned</div>
+	        <div class="pull-right">No milestone</div>
+	      </div>
+        <div gw-markdown-editor gw-content="Input.issue.content"></div>
+
+	      <div class="form-group">
+	        <button class="btn btn-success" ng-click="Input.saveIssue()" gw-post-button="Input.post" gw-alternative-text="saving...">Submit new Issue</button>
+	      </div>
+	    </div>
+    </form>
+  </div>
+  <div class="issue-sidebar pull-right">
+    <span>labels</span>
+  </div>
+</div>

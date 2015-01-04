@@ -1,0 +1,22 @@
+<div class="panel panel-default" >
+  <div class="panel-heading">System Setting</div>
+  <div class="panel-body" ng-hide="SystemCtrl.settings.$resolved">loading...
+  </div>
+
+  <div class="panel-body" ng-show="SystemCtrl.settings.$resolved">
+    <form name="systemForm">
+      <div class="form-group">
+        <label for="host">URL (e.g. http://example.com:8080/)</label>
+        <input type="text" class="form-control" name="url" ng-model="SystemCtrl.settings.url"/>
+      </div>
+      <div class="form-group">
+        <label for="username">Application Name</label>
+        <input type="text" class="form-control" name="name" ng-model="SystemCtrl.settings.name" style="width: 40%"/>
+      </div>
+
+      <div class="form-group">
+        <a class="btn btn-success" ng-click="SystemCtrl.save()" gw-post-button="SystemCtrl.savePost" gw-post-form="systemForm" gw-alternative-text="saving...">Register</a>
+      </div>
+    </form>
+  </div>
+</div>

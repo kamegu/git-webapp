@@ -1,0 +1,14 @@
+<div class="markdown-editor">
+  <div class="markdown-header">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-write" ng-class="{active: !previewing}" ng-click="previewing=false;"><a href="#">Write</a></li>
+      <li class="nav-preview" ng-class="{active: previewing}"><a href="#" ng-click="previewing=true;preview();">Preview</a></li>
+    </ul>
+  </div>
+  <div class="markdown-content" ng-hide="previewing">
+    <textarea class="form-control" rows="6" name="content" ng-model="content" ng-required="gwRequired"></textarea>
+  </div>
+  <div class="markdown-content markdown-body" ng-show="previewing">
+    <div ng-bind-html="previewHtml"></div>
+  </div>
+</div>

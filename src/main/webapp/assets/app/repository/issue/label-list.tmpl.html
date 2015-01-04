@@ -1,0 +1,71 @@
+<div class="list-header clearfix">
+  <div class="pull-left">
+    <div class="btn-group">
+      <a class="btn btn-default" href="{{repoPath}}/issues">Issues</a>
+      <a class="btn btn-default" href="{{repoPath}}/pulls">Pull Requests</a>
+      <a class="btn btn-primary" href="{{repoPath}}/labels" target="_self">Labels</a>
+      <a class="btn btn-default">Milestones</a>
+    </div>
+  </div>
+  <div class="pull-right" gw-collaborator-only>
+    <a class="btn btn-success" ng-click="showNewForm=!showNewForm">New Label</a>
+  </div>
+</div>
+
+<!-- new label form -->
+<div class="panel panel-default" ng-show="showNewForm">
+  <form name="newLabelForm" novalidate>
+    <input type="text" name="name" ng-model="Labelctrl.newLabel.name" placeholder="New label name" required>
+    <span class="error-message" ng-show="newLabelForm.name.$error.required">Required</span>
+    <input type="color" name="color" ng-model="Labelctrl.newLabel.color" required>
+    <span class="error-message" ng-show="newLabelForm.color.$error.required">Required</span>
+    <span class="pull-right">
+      <a class="btn btn-default" ng-click="showNewForm=false">Cancel</a>
+      <a class="btn btn-success" ng-click="Labelctrl.createLabel()" gw-post-button="Labelctrl.createPost">Create label</a>
+    </span>
+  </form>
+</div>
+
+<div ng-hide="Labelctrl.labels.$resolved">loading...</div>
+<div class="list-group list-content" ng-show="Labelctrl.labels.$resolved">
+  <div class="list-group-item clearfix" ng-repeat="label in Labelctrl.labels" ng-init="label.orgName=label.name; label.view='list'; lIndex=$index">
+    <!-- edit form -->
+    <div ng-show="label.view === 'edit'">
+      <form name="labelEditForm_{{lIndex}}" novalidate>
+        <input type="text" name="name" ng-model="label.name" required>
+        <span ng-show="labelEditForm_{{lIndex}}.name.$error.required">Required</span>
+        <input type="color" name="color" ng-model="label.color" required>
+        <span ng-show="labelEditForm_{{lIndex}}.color.$error.required">Required</span>
+        <span class="pull-right">
+          <a class="btn btn-default" ng-click="label.view = 'list'">Cancel</a>
+          <a class="btn btn-success" ng-click="Labelctrl.changeLabel(label)" gw-post-button="Labelctrl.updatePost">Save changes</a>
+        </span>
+      </form>
+    </div>
+
+    <!-- delete form -->
+    <div ng-show="label.view === 'del'">
+      <span>Are you sure? Deleting a label will remove it from all issues and pull requests.</span>
+      <span class="pull-right">
+        <a class="btn btn-default" ng-click="label.view = 'list'">Cancel</a>
+        <a class="btn btn-warning" ng-click="Labelctrl.deleteLabel(label)" gw-post-button="Labelctrl.updatePost">Delete</a>
+      </span>
+    </div>
+
+    <!-- list item -->
+    <div class="pull-left" ng-show="label.view === 'list'">
+      <span class="label label-default" style="font-size: 130%;" ng-style="{'background-color': label.color}">
+        <span class="octicon octicon-tag"></span>
+        {{label.orgName}}
+      </span>
+    </div>
+    <div class="pull-right" ng-show="label.view === 'list'" gw-collaborator-only>
+      <a class="list-action" ng-click="label.view = 'edit'">
+        <span class="octicon octicon-pencil"></span>Edit
+      </a>
+      <a class="list-action" ng-click="label.view = 'del'">
+        <span class="octicon octicon-x"></span>Delete
+      </a>
+     </div>
+  </div>
+</div>

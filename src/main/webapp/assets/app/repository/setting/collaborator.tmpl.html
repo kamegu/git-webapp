@@ -1,0 +1,19 @@
+<div ng-if="CollaboratorCtrl.collaborators.$resolved">
+  <div class="list-group">
+    <div class="list-group-item" ng-repeat="collaborator in CollaboratorCtrl.collaborators">
+      {{collaborator.name}} <a href="#" ng-click="CollaboratorCtrl.del(collaborator.name)">delete</a>
+    </div>
+  </div>
+  <div ng-if="CollaboratorCtrl.collaborators.length == 0">no collaborators
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <form name="form">
+    <div class="form-group">
+      <input type="text" class="form-control" style="display: inline; width: 60%;" placeholder="Please add collaborator" ng-model="CollaboratorCtrl.name"/>
+      <a class="btn btn-success" ng-click="CollaboratorCtrl.add()">Add</a>
+      <span class="error-message" ng-bind="CollaboratorCtrl.error"></span>
+    </div>
+  </form>
+</div>

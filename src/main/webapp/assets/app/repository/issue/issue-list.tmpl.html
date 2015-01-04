@@ -1,0 +1,37 @@
+<div class="list-header clearfix">
+  <div class="pull-left">
+    <div class="btn-group">
+      <a class="btn" ng-class="list.config.pull ? 'btn-default' : 'btn-primary'" ng-href="{{repoPath}}/issues">Issues</a>
+      <a class="btn" ng-class="list.config.pull ? 'btn-primary' : 'btn-default'" ng-href="{{repoPath}}/pulls">Pull Requests</a>
+      <a class="btn btn-default" ng-href="{{repoPath}}/labels">Labels</a>
+      <a class="btn btn-default">Milestones</a>
+    </div>
+  </div>
+  <div class="pull-right">
+    <a ng-href="{{repoPath}}/issues/new" class="btn btn-success" ng-hide="list.config.pull">New Issue</a>
+    <a ng-href="{{repoPath}}/compare" target="_self" class="btn btn-success" ng-show="list.config.pull">New Pull Request</a>
+  </div>
+</div>
+<div ng-show="!list.issues.$resolved">loading...</div>
+
+<div class="list-group" ng-show="list.issues.$resolved">
+  <div class="list-group-item clearfix" ng-repeat="issue in list.issues">
+    <span class="pull-left icon-label">
+      <span class="octicon octicon-issue-opened open" ng-if="!issue.pull && !issue.closed"></span>
+      <span class="octicon octicon-issue-closed closed" ng-if="!issue.pull && issue.closed"></span>
+      <span class="octicon octicon-git-pull-request" ng-class="issue.closed ? 'closed' : 'open'" ng-if="!!issue.pull"></span>
+    </span>
+    <div class="pull-left">
+      <a ng-href="{{repoPath}}/issues/{{issue.issueId}}">{{issue.title}}</a>
+	    <div class="small">
+	      #{{issue.issueId}} opened at {{issue.registeredTimestamp | date : 'yyyy/MM/dd HH:mm:ss'}} by
+	      <a ng-href="{{appPath}}/{{issue.openedBy}}" target="_self">{{issue.openedBy}}</a>
+	    </div>
+    </div>
+    <div class="pull-right text-right icon-label">
+      <a ng-href="{{repoPath}}/issues/{{issue.issueId}}#comments">
+        <span class="octicon octicon-comment"></span>
+      </a>
+    </div>
+  </div>
+</div>

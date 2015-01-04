@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+  <div class="panel-heading">{{GroupCtrl.isNew() ? 'Create Group' : 'Edit Group'}}</div>
+  <div class="panel-body" ng-show="GroupCtrl.group.$resolved">
+    <div ng-show="GroupCtrl.errors">
+      <span class="error-message" ng-repeat="error in GroupCtrl.errors">{{error}}
+      </span>
+    </div>
+    
+    <form name="form" ng-hide="GroupCtrl.errors">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" ng-model="GroupCtrl.group.account.name" ng-disabled="!GroupCtrl.isNew()" ng-required="GroupCtrl.isNew()"/>
+        <span class="error-message" ng-show="form.name.$error.required">Required</span>
+        <label ng-show="!GroupCtrl.isNew()" >
+          <input type="checkbox" ng-model="GroupCtrl.group.account.delete"/>Delete
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="url">Url</label>
+        <input type="text" class="form-control" name="url" ng-model="GroupCtrl.group.account.url"/>
+      </div>
+
+      <div class="form-group">
+        <label>Members</label>
+        <div class="list-group">
+          <div class="list-group-item clearfix" ng-repeat="member in GroupCtrl.group.members">
+            {{member.name}}
+            <div class="btn-group">
+              <button class="btn btn-xs btn-default" ng-class="{active: !member.manager}" ng-click="member.manager=false">member</button>
+              <button class="btn btn-xs btn-default" ng-class="{active: !!member.manager}" ng-click="member.manager=true">manager</button>
+            </div>
+            <div class="pull-right">
+              <a ng-click="GroupCtrl.group.members.splice($index, 1)">Delete</a>
+            </div>
+          </div>
+        </div>
+        <div class="inline-form">
+          <input type="text" class="form-control" style="width: 60%;" placeholder="Add member" ng-model="GroupCtrl.memberName"/>
+          <a class="btn btn-success" ng-click="GroupCtrl.addMember()">Add</a>
+          <span class="error-message" ng-bind="GroupCtrl.memberError"></span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <a class="btn btn-success" ng-click="GroupCtrl.saveGroup()" gw-post-button="GroupCtrl.post" gw-post-form="form" gw-alternative-text="saving...">Register</a>
+        <a class="btn btn-default" ng-href="{{Main.appPath}}/settings/admin/users">Back</a>
+      </div>
+    </form>
+  </div>
+</div>

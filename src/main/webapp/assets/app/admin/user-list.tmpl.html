@@ -1,0 +1,31 @@
+<div class="clearfix list-header">
+  <label class="pull-left">
+    <input type="checkbox" ng-model="ListCtrl.showDeleted" ng-change="ListCtrl.reloadAccounts()">Show Deleted
+  </label>
+  <div class="pull-right">
+    <a ng-href="{{Main.adminPath}}/users/new" class="btn btn-default">New User</a>
+    <a ng-href="{{Main.adminPath}}/groups/new" class="btn btn-default">New Group</a>
+  </div>
+</div>
+
+<table class="table table-bordered table-hover list-content">
+  <tbody>
+    <tr ng-repeat="account in ListCtrl.accounts">
+      <td>
+        <div class="pull-right">
+          <a ng-href="{{ListCtrl.getEditUrl(account)}}">Edit</a>
+        </div>
+        <div>
+          <a ng-href="{{Main.appPath}}/{{account.account.name}}" target="_self">{{account.account.name}}</a>
+          <span ng-show="account.admin" class="label label-danger"><span class="octicon octicon-gear small" title="Administrator"></span></span>
+          <span ng-show="account.group" class="label label-success"><span class="octicon octicon-organization small" title="Group"></span></span>
+          <span ng-show="account.account.delete" class="label label-default">deleted</span>
+        </div>
+        <div class="small">
+          <hr>
+          Registered: {{account.registeredTimestamp | date : 'yyyy/MM/dd HH:mm:ss'}}
+        </div>
+      </td>
+    <tr>
+  </tbody>
+</table>

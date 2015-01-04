@@ -1,0 +1,85 @@
+<div ng-show="!Main.compare.isSame() && (!Comp.commits.$resolved || !Comp.diffs.$resolved)">loading...
+</div>
+
+<div ng-if="!Main.compare.isSame() && Comp.commits.$resolved && Comp.diffs.$resolved">
+  <div class="compare-result" ng-show="!Comp.formVisible">
+    <div class="panel panel-default compare-pull-request" ng-show="Comp.diffs.length != 0">
+      <div class="panel-body">
+        <p>
+          <a class="btn btn-success" ng-click="Comp.formVisible=true;" gw-login-only><span class="octicon octicon-git-pull-request"></span>Create pull request</a>
+          Discuss and review the changes in this comparison with others.
+        </p>
+        <p gw-login-only-alternative>Please login for Pull Request</p>
+      </div>
+    </div><!-- compare-pull-request -->
+
+    <div class="commit-list" ng-show="Comp.commits && Comp.commits.length != 0" style="margin-bottom: 20px;">
+      <div class="commit-list-item" ng-repeat="commit in Comp.commits">
+        <div>
+          <span class="octicon octicon-repo-push" style="border-radius: 50%; color: #333; background-color: #f4f4f4; width: 32px; height: 32px; line-height: 32px; text-align: center;"></span>
+          Commits on {{commit.timestamp | date:'yyyy-MM-dd'}}
+        </div>
+        <table style="width: 100%;">
+          <tbody>
+            <tr>
+              <td style="padding-left: 10px;"><span class="octicon octicon-git-commit"></span></td>
+              <td>{{commit.author}}</td>
+              <td>{{commit.message}}</td>
+              <td class="text-right">{{commit.commitId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div gw-repository-diff="Comp.diffs"></div>
+
+    <div ng-show="Comp.diffs.length == 0" class="text-center panel panel-default" style="padding: 30px;">
+      <p><b>There isn't anything to compare.</b></p>
+    </div>
+  </div><!-- compare-result -->
+
+  <div class="pull-request-wrapper" ng-show="Comp.formVisible" gw-login-only>
+    <div class="clearfix panel panel-default">
+      <div class="issue-main pull-left">
+        <form name="pullForm">
+          <div class="issue-comment">
+            <div class="issue-form">
+              <input type="text" class="form-control" name="title" ng-model="Comp.pull.title" placeholder="Title" required/>
+              <span class="error-message" ng-show="pullForm.title.$error.required">Required</span>
+            </div>
+            <div class="issue-infobar clearfix">
+              <div class="pull-left">No one is assigned</div>
+              <div class="pull-right">No milestone</div>
+            </div>
+            <div gw-markdown-editor gw-content="Comp.pull.content"></div>
+    
+            <div class="form-buttons clearfix">
+              <div class="pull-right">
+                <a class="btn btn-success" ng-click="Comp.createPullRequest()" ng-disabled="!pullForm.$valid || (Comp.post && !Comp.post.$resolved)">Create pull request</a>
+                <a class="btn btn-default" ng-click="Comp.formVisible = false" ng-disabled="Comp.post && !Comp.post.$resolved">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="issue-sidebar pull-right">
+        <div class="text-center" ng-show="Comp.mergeCheckResult.$resolved && Comp.mergeCheckResult.mergeable == 'ENABLE'">
+          <span>Able to merge</span>
+        </div>
+        <div class="text-center" ng-show="Comp.mergeCheckResult.$resolved && !Comp.mergeCheckResult.mergeable == 'DISABLE'">
+          <span>Disable to merge</span>
+        </div>
+        <div class="text-center" ng-if="!Comp.mergeCheckResult || !Comp.mergeCheckResult.$resolved">
+          <span>checking mergeable...</span>
+        </div>
+      </div>
+    </div>
+    
+  </div><!-- pull-request-wrapper -->
+</div>
+
+<div ng-show="Main.compare.isSame()" class="text-center panel panel-default" style="padding: 30px;">
+  <p><b>There isn't anything to compare.</b></p>
+  <p>You'll need to use two different branch names to get a valid comparison.</p>
+</div>

@@ -1,0 +1,14 @@
+<div ng-if="!Commit.commits.$resolved">loading...</div>
+<div ng-if="Commit.commits.$resolved">
+  <div class="panel panel-default">
+    <div class="panel-heading" ng-bind="Commit.commit.message">
+    </div>
+    <div class="panel-body">
+    </div>
+  </div>
+
+  <div ng-if="!Commit.diffs.$resolved">loading...</div>
+
+  <div gw-repository-diff="Commit.diffs"></div>
+</div>
+

@@ -1,0 +1,14 @@
+<div class="list-group repo-sidemenu">
+  <a class="list-group-item" data-ng-href="{{repoContext.path}}" target="_self" data-ng-class="{active: current=='code'}">
+    <span class="octicon octicon-code"></span>
+  </a>
+  <a class="list-group-item" data-ng-href="{{repoContext.path}}/issues" target="_self" data-ng-class="{active: current=='issue'}">
+    <span class="octicon octicon-issue-opened"></span>
+  </a>
+  <a class="list-group-item" data-ng-href="{{repoContext.path}}/pulls" target="_self" data-ng-class="{active: current=='pull'}">
+    <span class="octicon octicon-git-pull-request"></span>
+  </a>
+  <a class="list-group-item" data-ng-href="{{repoContext.path}}/settings" target="_self" data-ng-class="{active: current=='setting'}" data-ng-if="repoContext.collaborator">
+    <span class="octicon octicon-tools"></span>
+  </a>
+</div>
